@@ -21,6 +21,20 @@ contract EduchainMain {
         address uploader
     );
 
+    function getUploader(string memory _file) 
+        public
+        view
+        returns(address)
+    {
+        address uploader;
+        for(uint i = 0; i < contentCount; ++i) {
+            if(keccak256(abi.encodePacked(_file)) == keccak256(abi.encodePacked(contents[i].file))) {
+                uploader = contents[i].uploader;
+            }
+        }
+        return uploader;
+    }
+
     function contentExists(string memory _file)
         public
         view
