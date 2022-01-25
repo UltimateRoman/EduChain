@@ -9,7 +9,7 @@ contract EduchainMain {
         string course;
         string subject;
         string file;
-        address uploader;
+        address contributor;
     }
 
     mapping(uint => Content) public contents;
@@ -18,21 +18,21 @@ contract EduchainMain {
         uint id,
         string course,
         string subject,
-        address uploader
+        address contributor
     );
 
-    function getUploader(string memory _file) 
+    function getContributor(string memory _file) 
         public
         view
         returns(address)
     {
-        address uploader;
+        address contributor;
         for(uint i = 0; i < contentCount; ++i) {
             if(keccak256(abi.encodePacked(_file)) == keccak256(abi.encodePacked(contents[i].file))) {
-                uploader = contents[i].uploader;
+                contributor = contents[i].contributor;
             }
         }
-        return uploader;
+        return contributor;
     }
 
     function contentExists(string memory _file)

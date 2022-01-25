@@ -44,13 +44,13 @@ contract('EduChainMain', (accounts) => {
             assert.equal(content.course, "BTE");
             assert.equal(content.subject, "Engineering Materials");
             assert.equal(content.file, "https://adgdagadg.dweb.link");
-            assert.equal(content.uploader, accounts[0]);
+            assert.equal(content.contributor, accounts[0]);
         });
 
-        it("can retrieve correct uploader of content", async() => {
+        it("can retrieve correct contributor of content", async() => {
             const content = await ecMain.contents(0);
-            const uploader = await ecMain.getUploader("https://adgdagadg.dweb.link");
-            assert.equal(content.uploader, uploader);
+            const contributor = await ecMain.getContributor("https://adgdagadg.dweb.link");
+            assert.equal(content.contributor, contributor);
         });
     });
 });
