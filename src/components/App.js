@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { 
+  BrowserRouter as Router, Route 
+} from 'react-router-dom';
 import './App.css';
+
 import Navbar from './Navbar.js';
+import Home from './Home.js';
 import EduchainMain from '../abis/EduchainMain.json';
 
 class App extends Component {
@@ -115,6 +119,12 @@ class App extends Component {
               ECTbalance={this.state.ECTbalance}
             />
             
+            <Route exact path="/" render={props => (
+              <React.Fragment>
+                <Home/>
+              </React.Fragment>
+            )} />
+
           </Router>
         </div>
       );
