@@ -1,12 +1,17 @@
 const { assert } = require("chai");
 
 const EduchainMain = artifacts.require('EduchainMain');
+const EduChainRewardToken = artifacts.require("EduChainRewardToken");
 
 contract('EduChainMain', (accounts) => {
-    let ecMain;
+    let ecMain, ECToken;
 
     before(async() => {
         ecMain = await EduchainMain.deployed();
+        ECToken = await EduChainRewardToken.deployed();
+        await ecMain.setECTAddress(ECToken.address);
+        const MINTER_ROLE = web3.utils.soliditySha3("MINTER_ROLE");
+        await ECToken.grantRole(MINTER_ROLE, ecMain.address);
     });
 
     describe("Contract Deployment", async() => {
@@ -20,23 +25,31 @@ contract('EduChainMain', (accounts) => {
     });
 
     describe("Adding new content", async() => {
-        let initialCount;
+        let initialCount, initialBalance;
 
         before(async() => {
             initialCount = await ecMain.contentCount();
+            initialBalance = await ECToken.balanceOf(accounts[1]);
         });
 
         it("adds new content", async() => {
             await ecMain.addContent("BTE", "Engineering Materials", "https://adgdagadg.dweb.link");
+            await ecMain.addContent("MBB", "Anatomy", "https://asfhfhfhfsjjgadg.dweb.link", {from: accounts[1]});
         });
 
         it("content count increases", async() => {
             let finalCount = await ecMain.contentCount();
             const difference = finalCount - initialCount;     
-            assert.equal(difference, 1);
-        })
-    });
+            assert.equal(difference, 2);
+        });
 
+        it("contributor receives ECT token reward", async() => {
+            let finalBalance = await ECToken.balanceOf(accounts[1]);
+            assert.equal(
+                web3.utils.fromWei((finalBalance - initialBalance).toString()), "1"
+            );
+        });
+    });
 
     describe("Retrieving content", async() => {
         it("can view content using id", async() => {
