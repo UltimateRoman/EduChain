@@ -8,6 +8,7 @@ import './App.css';
 import Navbar from './Navbar.js';
 import Home from './Home.js';
 import Contribute from './Contribute.js';
+import Resources from './Resources.js';
 import EduchainMain from '../abis/EduchainMain.json';
 import EduChainRewardToken from '../abis/EduChainRewardToken.json';
 import { SpringSpinner } from 'react-epic-spinners';
@@ -139,6 +140,19 @@ class App extends Component {
                   this.state.loading
                     ? <div class="center"><SpringSpinner size="100" color="green" /></div>
                     : <Contribute addContent={this.addContent} />
+                }
+              </React.Fragment>
+            )} />
+
+            <Route exact path="/resources" render={props => (
+              <React.Fragment>
+                {
+                  this.state.loading
+                    ? <div class="center"><SpringSpinner size="100" color="green" /></div>
+                    : <Resources 
+                        contents={this.state.contents}
+                        tipContributor={this.tipContributor} 
+                      />
                 }
               </React.Fragment>
             )} />
