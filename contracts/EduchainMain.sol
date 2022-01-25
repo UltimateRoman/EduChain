@@ -1,12 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import "@openzeppelin/contracts/access/Ownable.sol";
+
 interface IECToken {
-function mint(address to,uint amount) external
+    function mint(address to, uint amount) external;
 }
 
-contract EduchainMain {
-    address IECTaddress;
+contract EduchainMain is Ownable {
+
+    address ECTaddress;
     uint public contentCount;
     
     struct Content {
@@ -53,6 +56,10 @@ contract EduchainMain {
         return fileExists;
     }
 
+    function setECTAddress(address _ECTaddress) external onlyOwner {
+        ECTaddress = _ECTaddress;
+    }
+
     function addContent(
         string memory _course, 
         string memory _subject,
@@ -63,8 +70,8 @@ contract EduchainMain {
         require(bytes(_course).length > 0 && bytes(_file).length > 0, "Missing details");
         require(contentExists(_file) == false, "Content already exists");
         contents[contentCount] = Content(_course, _subject, _file, msg.sender);
-        emit addedNewContent(contentCount, _course, _subject, msg.sender);
         contentCount++;
-        IECToken(IECTaddress).mint(msg.sender,1 ether);
+        IECToken(ECTaddress).mint(msg.sender, 1 ether);
+        emit addedNewContent(contentCount-1, _course, _subject, msg.sender);
     }
 }
