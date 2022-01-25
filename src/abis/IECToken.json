@@ -34,7 +34,7 @@
     "absolutePath": "/D/Hackathons/Devfolio online/Amithon/test/contracts/EduchainMain.sol",
     "exportedSymbols": {
       "Context": [
-        1427
+        1485
       ],
       "EduchainMain": [
         272
@@ -43,7 +43,7 @@
         60
       ],
       "Ownable": [
-        756
+        814
       ]
     },
     "id": 273,
@@ -67,7 +67,7 @@
         "id": 52,
         "nodeType": "ImportDirective",
         "scope": 273,
-        "sourceUnit": 757,
+        "sourceUnit": 815,
         "src": "60:52:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -177,7 +177,7 @@
               "id": 61,
               "name": "Ownable",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 756,
+              "referencedDeclaration": 814,
               "src": "222:7:1"
             },
             "id": 62,
@@ -186,16 +186,16 @@
           }
         ],
         "contractDependencies": [
-          756,
-          1427
+          814,
+          1485
         ],
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 272,
         "linearizedBaseContracts": [
           272,
-          756,
-          1427
+          814,
+          1485
         ],
         "name": "EduchainMain",
         "nodeType": "ContractDefinition",
@@ -1830,7 +1830,7 @@
                   "id": 191,
                   "name": "onlyOwner",
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 699,
+                  "referencedDeclaration": 757,
                   "src": "1473:9:1"
                 },
                 "nodeType": "ModifierInvocation",
@@ -2930,7 +2930,7 @@
     "absolutePath": "/D/Hackathons/Devfolio online/Amithon/test/contracts/EduchainMain.sol",
     "exportedSymbols": {
       "Context": [
-        1427
+        1485
       ],
       "EduchainMain": [
         272
@@ -2939,7 +2939,7 @@
         60
       ],
       "Ownable": [
-        756
+        814
       ]
     },
     "id": 273,
@@ -2963,7 +2963,7 @@
         "id": 52,
         "nodeType": "ImportDirective",
         "scope": 273,
-        "sourceUnit": 757,
+        "sourceUnit": 815,
         "src": "60:52:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -3073,7 +3073,7 @@
               "id": 61,
               "name": "Ownable",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 756,
+              "referencedDeclaration": 814,
               "src": "222:7:1"
             },
             "id": 62,
@@ -3082,16 +3082,16 @@
           }
         ],
         "contractDependencies": [
-          756,
-          1427
+          814,
+          1485
         ],
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 272,
         "linearizedBaseContracts": [
           272,
-          756,
-          1427
+          814,
+          1485
         ],
         "name": "EduchainMain",
         "nodeType": "ContractDefinition",
@@ -4726,7 +4726,7 @@
                   "id": 191,
                   "name": "onlyOwner",
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 699,
+                  "referencedDeclaration": 757,
                   "src": "1473:9:1"
                 },
                 "nodeType": "ModifierInvocation",
@@ -5828,7 +5828,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.1",
-  "updatedAt": "2022-01-25T10:26:42.100Z",
+  "updatedAt": "2022-01-25T12:44:41.241Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

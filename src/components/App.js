@@ -7,17 +7,18 @@ import './App.css';
 
 import Navbar from './Navbar.js';
 import Home from './Home.js';
+import Contribute from './Contribute.js';
 import EduchainMain from '../abis/EduchainMain.json';
-import 
+import EduChainRewardToken from '../abis/EduChainRewardToken.json';
+import { SpringSpinner } from 'react-epic-spinners';
 
 class App extends Component {
 
   async componentWillMount() {
     await this.loadWeb3();
-    await this.loadBlockchainData();
-    // if (this.state.network !== "Unidentified") {
-    //   await this.loadBlockchainData();
-    // }
+    if (this.state.network !== "Unidentified") {
+      await this.loadBlockchainData();
+    }
   }
 
   async loadWeb3() {
@@ -44,10 +45,12 @@ class App extends Component {
     const accounts = await web3.eth.getAccounts();
     this.setState({ account: accounts[0] });
     const networkId = await web3.eth.net.getId();
-    const networkData = EduchainMain.networks[networkId];
+    const networkData1 = EduchainMain.networks[networkId];
+    const networkData2 = EduChainRewardToken.networks[networkId];
 
-    if (networkData) {
-      const ECMain = new web3.eth.Contract(EduchainMain.abi, networkData.address);
+    if (networkData1 && networkData2) {
+      const ECMain = new web3.eth.Contract(EduchainMain.abi, networkData1.address);
+      const ECToken = new web3.eth.Contract(EduChainRewardToken.abi, networkData2.address);
       this.setState({ ECMain });
       const cCount = await ECMain.methods.contentCount().call();
       for (let i = 0; i < cCount; ++i) {
@@ -56,6 +59,9 @@ class App extends Component {
           contents: [...this.state.contents, content]
         });
       }
+      const result = await ECToken.methods.balanceOf(accounts[0]).call();
+      const ECTbalance = web3.utils.fromWei(result.toString());
+      this.setState({ ECTbalance });
     } else {
       window.alert('The current network is not supported, use Celo Alfajores Testnet');
     }
@@ -91,6 +97,7 @@ class App extends Component {
     .once('confirmation', (n, receipt) => {
       this.setState({ loading: false });
       window.location.href = '/resources';
+      window.alert('Thanks for your contribution!');
     });
   }
 
@@ -111,13 +118,13 @@ class App extends Component {
   }
 
   render() {
-    // if (this.state.network !== "Unidentified") {
+    if (this.state.network !== "Unidentified") {
       return (
         <div style={{ height: 800 }}>
           <Router>
             <Navbar 
               account={this.state.account} 
-              ECTbalance={this.state.ECTbalance}
+              ECTbalance={this.state.ECTbalance.toString()}
             />
             
             <Route exact path="/" render={props => (
@@ -126,14 +133,24 @@ class App extends Component {
               </React.Fragment>
             )} />
 
+            <Route exact path="/contribute" render={props => (
+              <React.Fragment>
+                {
+                  this.state.loading
+                    ? <div class="center"><SpringSpinner size="100" color="green" /></div>
+                    : <Contribute addContent={this.addContent} />
+                }
+              </React.Fragment>
+            )} />
+
           </Router>
         </div>
       );
-    // } else {
-    //   return(
-    //     <p style={{textAlign: "center", fontSize: "30 px"}}>Your current browser is not supported. Install Celo Extension wallet and use Celo Alfajores Testnet.</p>
-    //   );
-    // }
+    } else {
+      return(
+        <p style={{textAlign: "center", fontSize: "30 px"}}>Your current browser is not supported. Install Celo Extension wallet and use Celo Alfajores Testnet.</p>
+      );
+    }
   }
 }
 
