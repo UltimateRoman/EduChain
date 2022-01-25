@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import EduchainMain from '../abis/EduchainMain.json';
 import './App.css';
+import Navbar from './Navbar.js';
+import EduchainMain from '../abis/EduchainMain.json';
 
 class App extends Component {
 
   async componentWillMount() {
     await this.loadWeb3();
     await this.loadBlockchainData();
+    // if (this.state.network !== "Unidentified") {
+    //   await this.loadBlockchainData();
+    // }
   }
 
   async loadWeb3() {
@@ -35,7 +39,7 @@ class App extends Component {
     const accounts = await web3.eth.getAccounts();
     this.setState({ account: accounts[0] });
     const networkId = await web3.eth.net.getId();
-    const networkData = EduchainMain .networks[networkId];
+    const networkData = EduchainMain.networks[networkId];
 
     if (networkData) {
       const ECMain = new web3.eth.Contract(EduchainMain.abi, networkData.address);
@@ -55,7 +59,7 @@ class App extends Component {
 
   async getContributor(file) {
     this.setState({ loading: true });
-    const contributor = await ECMain.methods.getContributor(file).call();
+    const contributor = await this.state.ECMain.methods.getContributor(file).call();
     this.setState({ loading: false });
     return contributor;
   }
@@ -91,29 +95,34 @@ class App extends Component {
       account: '',
       loading: false,
       ECMain: null,
+      ECTbalance: 0,
       contents: [],
       network: "Unidentified"
     }
 
+    this.getContributor = this.getContributor.bind(this);
     this.addContent = this.addContent.bind(this);
+    this.tipContributor = this.tipContributor.bind(this);
   }
 
   render() {
-    if (this.state.network !== "Unidentified") {
+    // if (this.state.network !== "Unidentified") {
       return (
         <div style={{ height: 800 }}>
           <Router>
-            <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-              <h1>EduChain</h1>
-            </nav>
+            <Navbar 
+              account={this.state.account} 
+              ECTbalance={this.state.ECTbalance}
+            />
+            
           </Router>
         </div>
       );
-    } else {
-      return(
-        <p style={{textAlign: "center", fontSize: "30 px"}}>Your current browser is not supported. Install Celo Extension wallet and use Celo Alfajores Testnet.</p>
-      );
-    }
+    // } else {
+    //   return(
+    //     <p style={{textAlign: "center", fontSize: "30 px"}}>Your current browser is not supported. Install Celo Extension wallet and use Celo Alfajores Testnet.</p>
+    //   );
+    // }
   }
 }
 
