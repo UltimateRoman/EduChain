@@ -1,8 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract EduchainMain {
+interface IECToken {
+function mint(address to,uint amount) external
+}
 
+contract EduchainMain {
+    address IECTaddress;
     uint public contentCount;
     
     struct Content {
@@ -61,5 +65,6 @@ contract EduchainMain {
         contents[contentCount] = Content(_course, _subject, _file, msg.sender);
         emit addedNewContent(contentCount, _course, _subject, msg.sender);
         contentCount++;
+        IECToken(IECTaddress).mint(msg.sender,1 ether);
     }
 }
