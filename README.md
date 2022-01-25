@@ -1,5 +1,11 @@
 # EduChain
-Decentralized study materials and resource sharing platform
+Decentralized study materials and resource sharing platform.
+
+Nowadays, students mostly rely on soft copy and online materials and resources for study purposes. In some cases this could be pirated content such as e-books and a major roadblock is the lack of availability of materials pertaining to certain less popular topics or courses. EduChain provides a decentralized platform where users can contribute their study materials and resources to be utilised by the public. This could be handwritten notes, presentations, slides, infographics or any relevant content. This is stored in a decentralized, public and transparent form by virtue of blockchain technology, ensuring free of cost accessibility to any students or tutors around the world. The uploaded files are stored using web3.storage with data persisted by Filecoin and accessible over IPFS.
+
+To incentivise the users who contribute these resources, the platform will provide them with EduChain Reward Tokens(ECT) in return. Furthermore, platform users can directly provide tips the contributor of any specific content whom they would like to support. This is done anonymously, ensuring sufficient privacy and also without the need for middle-men or intermediaries. EduChain aims to be a community driven forum for students, where users are rewarded for their valuable contributions.
+
+The Smart Contracts are currently deployed on the Celo Alfajores Testnet and also can be deployed on any EVM-compatible chain.
 
 ## Tech Stack Used
 
